@@ -8,30 +8,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-
 @Entity
-public class Filial implements Serializable{
+public class Produto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	private Double preco;
 	
-	@ManyToMany(mappedBy="filial")
-	private List<Produto> produtos = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(name="PRODUTO_FILIAL",
+		joinColumns = @JoinColumn(name = "produto_id"),
+		inverseJoinColumns = @JoinColumn(name="filial_id")
+			)
 	
+	private List<Filial> filial = new ArrayList<>();
 	
-	public Filial() {		
+	public Produto() {
 	}
 
-	
-	public Filial(Integer id, String nome) {
+	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.preco = preco;
 	}
 
 	public Integer getId() {
@@ -49,17 +55,22 @@ public class Filial implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	public List<Produto> getProdutos() {
-		return produtos;
+
+	public Double getPreco() {
+		return preco;
 	}
 
-
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setPreco(Double preco) {
+		this.preco = preco;
 	}
-	
-	
+
+	public List<Filial> getFilial() {
+		return filial;
+	}
+
+	public void setFilial(List<Filial> filial) {
+		this.filial = filial;
+	}
 
 	@Override
 	public int hashCode() {
@@ -77,7 +88,7 @@ public class Filial implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Filial other = (Filial) obj;
+		Produto other = (Produto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -85,8 +96,7 @@ public class Filial implements Serializable{
 			return false;
 		return true;
 	}
-
-
-
 	
+	
+
 }
