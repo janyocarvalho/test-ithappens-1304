@@ -3,27 +3,29 @@ package com.janyo.mateus.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.janyo.mateus.domain.Filial;
+import com.janyo.mateus.services.FilialService;
 
 @RestController
 @RequestMapping(value="/filiais")
 public class FilialResource {
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public List<Filial> listar() {
+	@Autowired
+	private FilialService service;
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id) {
+		Filial obj = service.buscar(id);
+		return ResponseEntity.ok().body(obj);
 		
-		Filial fil1 = new Filial (1, "Sao Luís");
-		Filial fil2 = new Filial (2, "Imperatriz");
 		
-		List<Filial> lista = new ArrayList<>();
-		lista.add(fil1);
-		lista.add(fil2);
-		
-		return lista;
 	}
 	
 }
