@@ -15,6 +15,7 @@ import com.janyo.mateus.domain.Pagamento;
 import com.janyo.mateus.domain.Pedido;
 import com.janyo.mateus.domain.Produto;
 import com.janyo.mateus.domain.StatusItemPedido;
+import com.janyo.mateus.domain.Usuario;
 import com.janyo.mateus.domain.enums.EstadoPagamento;
 import com.janyo.mateus.domain.enums.FormaPagamento;
 import com.janyo.mateus.domain.enums.TipoOperacao;
@@ -25,6 +26,7 @@ import com.janyo.mateus.repositories.PagamentoRepository;
 import com.janyo.mateus.repositories.PedidoRepository;
 import com.janyo.mateus.repositories.ProdutoRepository;
 import com.janyo.mateus.repositories.StatusItemPedidoRepository;
+import com.janyo.mateus.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class MateusApplication implements CommandLineRunner {
@@ -43,6 +45,8 @@ public class MateusApplication implements CommandLineRunner {
 	private ItemPedidoRepository itemPedidoRepository;
 	@Autowired
 	private StatusItemPedidoRepository statusItemPedidoRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	
 
@@ -73,12 +77,18 @@ public class MateusApplication implements CommandLineRunner {
 		Cliente cli1 = new Cliente(null, "Maria", "maria@maria.com");
 		Cliente cli2 = new Cliente(null, "João", "joao@joao.com");
 		
+		Usuario usu1 = new Usuario(null, 12345, "Janyo Carvalho", "12345");
+		Usuario usu2 = new Usuario(null, 12346, "João Sousa", "12346");
+		Usuario usu3 = new Usuario(null, 12347, "Maria Firmina", "12347");
+		
+		
 		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		usuarioRepository.saveAll(Arrays.asList(usu1, usu2, usu3));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
 		
-		Pedido ped1 = new Pedido(null, sdf.parse( "10/05/2019 02:20"),TipoOperacao.ENTRADA ,cli1,);
-		Pedido ped2 = new Pedido(null, sdf.parse( "10/05/2019 02:26"),TipoOperacao.SAIDA ,cli2,);
+		Pedido ped1 = new Pedido(null, sdf.parse( "10/05/2019 02:20"),TipoOperacao.ENTRADA ,cli1, usu1);
+		Pedido ped2 = new Pedido(null, sdf.parse( "10/05/2019 02:26"),TipoOperacao.SAIDA ,cli2, usu2);
 		
 		Pagamento pagto1 = new Pagamento(null,FormaPagamento.AVISTA, EstadoPagamento.QUITADO, ped1);
 		ped1.setPagamento(pagto1);
@@ -110,6 +120,12 @@ public class MateusApplication implements CommandLineRunner {
 		StatusItemPedido statusItem3 = new StatusItemPedido(null, "PROCESSADO");
 		
 		statusItemPedidoRepository.saveAll(Arrays.asList(statusItem1, statusItem2, statusItem3));
+		
+	
+
+		
+		
+		
 		
 		
 		
