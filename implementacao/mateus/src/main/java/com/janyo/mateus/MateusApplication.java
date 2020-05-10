@@ -14,6 +14,7 @@ import com.janyo.mateus.domain.ItemPedido;
 import com.janyo.mateus.domain.Pagamento;
 import com.janyo.mateus.domain.Pedido;
 import com.janyo.mateus.domain.Produto;
+import com.janyo.mateus.domain.StatusItemPedido;
 import com.janyo.mateus.domain.enums.EstadoPagamento;
 import com.janyo.mateus.domain.enums.FormaPagamento;
 import com.janyo.mateus.repositories.ClienteRepository;
@@ -22,6 +23,7 @@ import com.janyo.mateus.repositories.ItemPedidoRepository;
 import com.janyo.mateus.repositories.PagamentoRepository;
 import com.janyo.mateus.repositories.PedidoRepository;
 import com.janyo.mateus.repositories.ProdutoRepository;
+import com.janyo.mateus.repositories.StatusItemPedidoRepository;
 
 @SpringBootApplication
 public class MateusApplication implements CommandLineRunner {
@@ -38,6 +40,8 @@ public class MateusApplication implements CommandLineRunner {
 	private PagamentoRepository pagamentoRepository;
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	@Autowired
+	private StatusItemPedidoRepository statusItemPedidoRepository;
 	
 	
 
@@ -99,6 +103,14 @@ public class MateusApplication implements CommandLineRunner {
 		p3.getItens().addAll(Arrays.asList(ip2));
 		
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+		
+		StatusItemPedido statusItem1 = new StatusItemPedido(null, "ATIVO");
+		StatusItemPedido statusItem2 = new StatusItemPedido(null, "CANCELADO");
+		StatusItemPedido statusItem3 = new StatusItemPedido(null, "PROCESSADO");
+		
+		statusItemPedidoRepository.saveAll(Arrays.asList(statusItem1, statusItem2, statusItem3));
+		
+		
 		
 	}
 	

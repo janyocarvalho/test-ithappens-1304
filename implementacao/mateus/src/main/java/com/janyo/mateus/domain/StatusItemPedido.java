@@ -16,7 +16,7 @@ public class StatusItemPedido {
 	
 	public StatusItemPedido() {		
 	}
-	
+		
 	
 	public StatusItemPedido(Integer id, String nome) {
 		super();
