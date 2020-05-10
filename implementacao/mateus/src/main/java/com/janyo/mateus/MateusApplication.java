@@ -87,8 +87,8 @@ public class MateusApplication implements CommandLineRunner {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
 		
-		Pedido ped1 = new Pedido(null, sdf.parse( "10/05/2019 02:20"),TipoOperacao.ENTRADA ,cli1, usu1);
-		Pedido ped2 = new Pedido(null, sdf.parse( "10/05/2019 02:26"),TipoOperacao.SAIDA ,cli2, usu2);
+		Pedido ped1 = new Pedido(null, sdf.parse("10/05/2019 02:20"),TipoOperacao.ENTRADA ,cli1, usu1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/05/2019 02:26"),TipoOperacao.SAIDA ,cli2, usu2);
 		
 		Pagamento pagto1 = new Pagamento(null,FormaPagamento.AVISTA, EstadoPagamento.QUITADO, ped1);
 		ped1.setPagamento(pagto1);

@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Usuario {
@@ -20,8 +20,8 @@ public class Usuario {
 	private Integer matricula;
 	private String nome;
 	private String senha;
-		
-	@JsonManagedReference
+	
+	@JsonBackReference
 	@ManyToMany(mappedBy="usuario")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
