@@ -34,6 +34,10 @@ public class Pedido implements Serializable{
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
+	@ManyToOne
+	@JoinColumn(name="usuario_id")
+	private Usuario usuario;
+	
 	
 	
 	@OneToMany(mappedBy ="id.pedido")
@@ -42,12 +46,14 @@ public class Pedido implements Serializable{
 	public Pedido() {
 	}
 
-	public Pedido(Integer id, Date dataHora, TipoOperacao operacao, Cliente cliente) {
+	
+	public Pedido(Integer id, Date dataHora, TipoOperacao operacao, Cliente cliente, Usuario usuario) {
 		super();
 		this.id = id;
 		this.dataHora = dataHora;
 		this.operacao = operacao.getCod();
 		this.cliente = cliente;
+		this.usuario = usuario;
 	}
 
 	public Integer getId() {
@@ -74,7 +80,6 @@ public class Pedido implements Serializable{
 		this.operacao = operacao.getCod();
 	}
 
-
 	public Pagamento getPagamento() {
 		return pagamento;
 	}
@@ -90,7 +95,15 @@ public class Pedido implements Serializable{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
+		
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public Set<ItemPedido> getItens() {
 		return itens;
 	}
