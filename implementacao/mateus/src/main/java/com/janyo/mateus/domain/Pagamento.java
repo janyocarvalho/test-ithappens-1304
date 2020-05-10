@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.janyo.mateus.domain.enums.EstadoPagamento;
 import com.janyo.mateus.domain.enums.FormaPagamento;
 
@@ -20,6 +21,7 @@ public class Pagamento implements Serializable{
 	private int forma;
 	private int estado;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId
