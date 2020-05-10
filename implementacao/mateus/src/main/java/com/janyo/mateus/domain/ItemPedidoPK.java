@@ -6,8 +6,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.janyo.mateus.domain.enums.StatusItem;
-
 
 @Embeddable
 public class ItemPedidoPK implements Serializable{
@@ -20,11 +18,7 @@ public class ItemPedidoPK implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="produto_id")
 	private Produto produto;
-	
-	@ManyToOne
-	@JoinColumn(name="statusPedido_id")
-	private StatusItem status;
-	
+		
 	public Pedido getPedido() {
 		return pedido;
 	}
