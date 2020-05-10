@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.janyo.mateus.domain.enums.TipoOperacao;
+
 @Entity
 public class Pedido implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -23,6 +25,7 @@ public class Pedido implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private Date dataHora;
+	private int operacao;
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy="pedido")
 	private Pagamento pagamento;
@@ -31,16 +34,19 @@ public class Pedido implements Serializable{
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
+	
+	
 	@OneToMany(mappedBy ="id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
 	public Pedido() {
 	}
 
-	public Pedido(Integer id, Date dataHora, Cliente cliente) {
+	public Pedido(Integer id, Date dataHora, TipoOperacao operacao, Cliente cliente) {
 		super();
 		this.id = id;
 		this.dataHora = dataHora;
+		this.operacao = operacao.getCod();
 		this.cliente = cliente;
 	}
 
@@ -59,6 +65,15 @@ public class Pedido implements Serializable{
 	public void setData(Date dataHora) {
 		this.dataHora = dataHora;
 	}
+	
+	public TipoOperacao getOperacao() {
+		return TipoOperacao.toEnum(operacao);
+	}
+
+	public void setOperacao(TipoOperacao operacao) {
+		this.operacao = operacao.getCod();
+	}
+
 
 	public Pagamento getPagamento() {
 		return pagamento;
@@ -108,6 +123,7 @@ public class Pedido implements Serializable{
 			return false;
 		return true;
 	}
+
 
 
 	
