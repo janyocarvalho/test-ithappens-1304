@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.janyo.mateus.domain.enums.StatusItem;
+
 @Entity
 public class ItemPedido implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -14,18 +16,18 @@ public class ItemPedido implements Serializable{
 	
 	private String quantidade;
 	private Double preco;
-	private Integer statusItemId;
+	private int status;
 	
 	public ItemPedido() {
 	}
 
-	public ItemPedido(Pedido pedido, Produto produto, String quantidade, Double preco, Integer statusItemId) {
+	public ItemPedido(Pedido pedido, Produto produto, StatusItem status, String quantidade, Double preco, Integer statusItemId) {
 		super();
 		id.setPedido(pedido);
 		id.setProduto(produto);
+		this.setStatus(status.getCod());
 		this.quantidade = quantidade;
 		this.preco = preco;
-		this.statusItemId = statusItemId;
 	}
 	
 	public Pedido getPedido() {
@@ -35,7 +37,7 @@ public class ItemPedido implements Serializable{
 	public Produto getProduto() {
 		return id.getProduto();
 	}
-
+	
 	public ItemPedidoPK getId() {
 		return id;
 	}
@@ -59,14 +61,15 @@ public class ItemPedido implements Serializable{
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-
-	public Integer getStatusItemId() {
-		return statusItemId;
+	
+	public StatusItem getStatus() {
+		return StatusItem.toEnum(status);
 	}
 
-	public void setStatusItemId(Integer statusItemId) {
-		this.statusItemId = statusItemId;
+	public void setStatus(StatusItem status) {
+		this.status = status.getCod();
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -91,6 +94,10 @@ public class ItemPedido implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	

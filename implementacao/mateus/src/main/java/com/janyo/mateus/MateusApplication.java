@@ -10,11 +10,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.janyo.mateus.domain.Cliente;
 import com.janyo.mateus.domain.Filial;
+import com.janyo.mateus.domain.ItemPedido;
 import com.janyo.mateus.domain.Pagamento;
 import com.janyo.mateus.domain.Pedido;
 import com.janyo.mateus.domain.Produto;
 import com.janyo.mateus.domain.enums.EstadoPagamento;
 import com.janyo.mateus.domain.enums.FormaPagamento;
+import com.janyo.mateus.domain.enums.StatusItem;
 import com.janyo.mateus.repositories.ClienteRepository;
 import com.janyo.mateus.repositories.FilialRepository;
 import com.janyo.mateus.repositories.PagamentoRepository;
@@ -82,7 +84,7 @@ public class MateusApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		
-		
+			
 		
 	}
 	
