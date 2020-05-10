@@ -7,8 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.janyo.mateus.domain.Cliente;
 import com.janyo.mateus.domain.Filial;
 import com.janyo.mateus.domain.Produto;
+import com.janyo.mateus.repositories.ClienteRepository;
 import com.janyo.mateus.repositories.FilialRepository;
 import com.janyo.mateus.repositories.ProdutoRepository;
 
@@ -19,6 +21,8 @@ public class MateusApplication implements CommandLineRunner {
 	private FilialRepository filialRepository;	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MateusApplication.class, args);
@@ -43,6 +47,11 @@ public class MateusApplication implements CommandLineRunner {
 		
 		filialRepository.saveAll(Arrays.asList(fil1, fil2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+		
+		Cliente cli1 = new Cliente(null, "Maria", "maria@maria.com");
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		
 	}
 	
 }
