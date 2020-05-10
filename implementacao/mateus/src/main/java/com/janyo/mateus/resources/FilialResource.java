@@ -24,7 +24,7 @@ public class FilialResource {
 		return ResponseEntity.ok().body(obj);
 		
 		
-	}
-	
+	}	
 }
+
 
