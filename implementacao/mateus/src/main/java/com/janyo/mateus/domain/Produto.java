@@ -74,7 +74,8 @@ public class Produto implements Serializable{
 	public void setFilial(List<Filial> filial) {
 		this.filial = filial;
 	}
-
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,6 +100,8 @@ public class Produto implements Serializable{
 			return false;
 		return true;
 	}
+
+
 	
 	
 
