@@ -19,24 +19,23 @@ public class Pedido implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Date data;
+	private Date dataHora;
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy="pedido")
 	private Pagamento pagamento;
 	
 	@ManyToOne
-	@JoinColumn(name="cliente")
+	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
 	
 	public Pedido() {
 	}
 
-	public Pedido(Integer id, Date data, Pagamento pagamento, Cliente cliente) {
+	public Pedido(Integer id, Date dataHora, Cliente cliente) {
 		super();
 		this.id = id;
-		this.data = data;
-		this.pagamento = pagamento;
+		this.dataHora = dataHora;
 		this.cliente = cliente;
 	}
 
@@ -49,11 +48,11 @@ public class Pedido implements Serializable{
 	}
 
 	public Date getData() {
-		return data;
+		return dataHora;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setData(Date dataHora) {
+		this.dataHora = dataHora;
 	}
 
 	public Pagamento getPagamento() {

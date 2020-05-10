@@ -1,16 +1,18 @@
 package com.janyo.mateus.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -18,6 +20,8 @@ public class Cliente implements Serializable{
 	private String nome;
 	private String email;
 	
+	@OneToMany(mappedBy ="cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente() {		
 	}
@@ -53,8 +57,15 @@ public class Cliente implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
 
-
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,7 +90,6 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
-	
 	
 	
 }

@@ -1,5 +1,6 @@
 package com.janyo.mateus;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.janyo.mateus.domain.Cliente;
 import com.janyo.mateus.domain.Filial;
+import com.janyo.mateus.domain.Pagamento;
+import com.janyo.mateus.domain.Pedido;
 import com.janyo.mateus.domain.Produto;
+import com.janyo.mateus.domain.enums.EstadoPagamento;
+import com.janyo.mateus.domain.enums.FormaPagamento;
 import com.janyo.mateus.repositories.ClienteRepository;
 import com.janyo.mateus.repositories.FilialRepository;
+import com.janyo.mateus.repositories.PagamentoRepository;
+import com.janyo.mateus.repositories.PedidoRepository;
 import com.janyo.mateus.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -23,6 +30,11 @@ public class MateusApplication implements CommandLineRunner {
 	private ProdutoRepository produtoRepository;
 	@Autowired
 	private ClienteRepository clienteRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(MateusApplication.class, args);
@@ -49,8 +61,28 @@ public class MateusApplication implements CommandLineRunner {
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
 		Cliente cli1 = new Cliente(null, "Maria", "maria@maria.com");
+		Cliente cli2 = new Cliente(null, "João", "joao@joao.com");
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
+		
+		Pedido ped1 = new Pedido(null, sdf.parse( "10/05/2019 02:20"), cli1);
+		Pedido ped2 = new Pedido(null, sdf.parse( "10/05/2019 02:26"), cli2);
+		
+		Pagamento pagto1 = new Pagamento(null,FormaPagamento.AVISTA, EstadoPagamento.QUITADO, ped1);
+		ped1.setPagamento(pagto1);
+		
+		Pagamento pagto2 = new Pagamento(null,FormaPagamento.BOLETO,EstadoPagamento.CANCELADO, ped2);
+		ped2.setPagamento(pagto2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1));
+		cli2.getPedidos().addAll(Arrays.asList(ped2));
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		
 		
 	}
 	
