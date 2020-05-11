@@ -26,9 +26,11 @@ public class Cliente implements Serializable{
 	@OneToMany(mappedBy ="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
+	
 	public Cliente() {		
 	}
 
+	
 	public Cliente(Integer id, String nome, String email) {
 		super();
 		this.id = id;
