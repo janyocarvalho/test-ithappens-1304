@@ -17,10 +17,14 @@ public class FilialService {
 	
 	
 	public Filial buscar(Integer id) {
-		 Optional<Filial> obj = repo.findById(id);
+		Optional<Filial>  obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-		 "Objeto não encontrado! Id: " + id + ", Tipo: " + Filial.class.getName()));
-		
+		 "Objeto não encontrado! Id: " + id + ", Tipo: " + Filial.class.getName()));		
 	}
 
+	public Filial insert (Filial obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
 }
